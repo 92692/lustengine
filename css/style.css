@@ -94,10 +94,10 @@ body
 /* NAVBAR */
 
 .navbar{
-    font-size: 1.2em;
+    font-size: 1em;
     width: 100%;
     padding: 0px 140px;
-    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+    box-shadow: 0 4px 4px rgba(0, 0, 0, 4%);
     background-color: #ffffff;
 }
 
@@ -107,7 +107,7 @@ body
 }
 
 .navbar-collapse {
-    justify-content: center;
+    justify-content: end;
 }
 
 .navbar-pages{
@@ -182,7 +182,13 @@ body
 
 
 
-
+.title{
+    font-size: 2em;
+    color: #818181;
+    width: 100%;
+    text-align: center;
+    padding: 46px 4px;
+}
 
 
 

@@ -5,9 +5,9 @@ use Route66 as Route;
 global $config, $user;
 
 $config['menu'] = [
-    'NEWS'		=> [ 'uri' => '/' ],
-    'EPISODES'	=> [ 'uri' => '/episodes/' ],
-    'DOCS'	    => [ 'uri' => '/docs/' ],
+    'ГЛАВНАЯ'		=> [ 'uri' => '/' ],
+    'ЭПИЗОДЫ'	=> [ 'uri' => '/episodes/' ],
+    'ИНФО'	    => [ 'uri' => '/docs/' ],
     'PROFILE'	=> [ 'uri' => '/profile/', 		'login' => true ],
 ];
 

@@ -4,8 +4,7 @@
             data-toggle="collapse"
             data-target="#navbarNavDropdown"
             aria-controls="navbarNavDropdown"
-            aria-expanded="false"
-            aria-label="Toggle navigation">
+            aria-expanded="false">
         <i class="icon-menu"></i>
     </button>
 
@@ -17,15 +16,15 @@
 
     <div class='navbar-pages<?php if(is_uri('/account/')){echo ' active';} ?>'>
     <?php if ($user['login'] ?? false) { ?>
-    <a class="nav-link menu-btn-profile" href="/account/"> <?= TEXT('Account') ?> </a>
+    <a class="nav-link menu-btn-profile" href="/account/"> <?= TEXT('АККАУНТ') ?> </a>
     <?php } else { ?>
-    <a class="nav-link menu-btn-profile" href="/login/"> <?= TEXT('Sign In') ?> </a>
+    <a class="nav-link menu-btn-profile" href="/login/"> <?= TEXT('ВОЙТИ') ?> </a>
     <?php } ?>
     <span class='nav-active'></span>
     </div>
 
 
-    <div class="collapse navbar-collapse" id="navbarNavDropdown">
+    <div class="collapse navbar-collapse">
         <ul class="navbar-nav">
             <?php foreach ($config['menu'] as $x_name => $x_item) { ?>
             <?php if(isset($x_item['login']) && !$user['login']) { continue; } ?>
