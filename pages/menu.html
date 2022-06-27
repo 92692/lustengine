@@ -1,0 +1,68 @@
+<!-- КНОПКА МЕНЮ -->
+<div class='escmenu'>
+    <div><i class='esc-icon icon icon-2x icon-cog' onclick='Menu.Esc()'></i></div>
+    <div><i class='esc-icon icon icon-2x icon-resize-full' id='icon-fullscreen' onclick='Menu.FullScreen()'></i></div>
+</div>
+
+</div>
+
+<!-- ЭКРАН МЕНЮ -->
+<div class='screen screen-menu' id='menu'>
+
+    <!-- ГЛАВНОЕ МЕНЮ -->
+    <div class="main-menu">
+        <ul class="main-menu-nav">
+            <li><a href="#" onclick='Menu.Resume();' class='menu-btn'>RESUME</a></li>
+            <li><a href="#" onclick='Menu.Gallery();' class='menu-btn'>GALLERY</a></li>
+            <li><a href="#" onclick='Menu.Options();' class='menu-btn'>OPTIONS</a></li>
+            <li><a href="#" onclick='Menu.Exit();' class='menu-btn'>EXIT</a></li>
+        </ul>
+    </div>
+
+
+    <!-- ТУТ БУДЕТ ГАЛЕРЕЯ -->
+
+
+
+    <!-- ОПЦИИ -->
+    <div class='options-menu'>
+        <div class='options-header'>
+            <i class='icon icon-2x icon-left-1'></i>
+            <h2 onclick='Menu.Options()'>MAIN MENU</h2>
+        </div>
+
+        <div class='options-body'>
+
+
+
+        <div class='option-group'>
+            <h3>Audio</h3>
+            <div class="option-item">
+                <label for="formControlRange">Music Volume</label>
+                <input type="range" class="range-slider" id="music-volume">
+            </div>
+        
+            <div class="option-item">
+                <label for="formControlRange">Sound Volume</label>
+                <input type="range" class="range-slider" id="sound-volume">
+            </div>
+        </div>
+        
+        <div class='option-group'>
+            <h3>Text</h3>
+            <div class="option-item">
+                <label for="formControlRange">Text Score</label>
+                <input type="range" class="range-slider" id="text-volume">
+            </div>
+            
+            
+            
+        </div>
+            
+    
+        </div>
+        
+    </div>
+
+
+</div>

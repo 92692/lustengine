@@ -4,62 +4,6 @@
 :root
 {
 
-    --body-color: #fff8f8;
-    --text-color: #000000;
-    --gen-radius: 5px;
-    --a-color:#000000;
-    --a-color-hover:#e4393c;
-
-
-    --badge-color: #ffffff;
-    --badge-background: #c34646;
-    --badge-color-hover: white;
-    --badge-background-hover: #9a2929;
-
-    --btn-color: #fff!important;
-    --btn-background-color:#ad3b3b;
-    --btn-border-color: #2e0000;
-    --btn-background-color-hover:#790000;
-    --btn-shadow:0 0 0 0.25rem rgb(121 0 0 / 20%);
-
-    --outline-color: #ad3b3b;
-    --outline-color-hover: #fff;
-
-    --outline-border-color: #af0000;
-    --outline-border-color-hover: #1b0000;
-
-    --outline-background-color-hover:#790000;
-    --outline-background-color-hover:#d64848;
-
-    --nav-underline-color:#e6b8b8;
-
-
-    --tag-color: #000000;
-    --tag-background: #e5e6ea;
-    --tag-color-hover: white;
-    --tag-background-hover: #e4393c;
-
-
-    --navbar-background: white;
-    --navlink-color: #3e3e3e;
-
-    --navlink-background-hover: #fff6f6;
-    --navlink-color-hover: #d32f2f;
-
-    --post-background-color:none;
-    --post-border: none;
-
-    --post-shadow: 0 0px 8px #69444455;
-    --post-shadow-hover:0 0px 10px 2px #69444455;
-
-    --post-premium-border:2px solid gold;
-    --post-premium-border-hover:2px solid gold;
-    --post-premium-shadow-hover:0 0px 10px 2px #bda82f93;
-
-
-    --ui-border-color-forcus: #c83434;
-    --ui-shadow-forcus: 0 0 0 0.25rem #fe8b8b40;
-
 
 }
 
@@ -192,3 +136,23 @@ body
 
 
 
+
+.btn-primary{
+    padding: 6px 35px;
+    font-size: 1.2em;
+    background-color: #bd6aff!important;
+    border-color: #390066!important;
+}
+
+.btn-primary:hover, .btn-primary:active, .btn-primary:visited {
+    background-color: #a53ef7  !important;
+}
+
+.btn-check:focus+.btn-primary, .btn-primary:focus{
+    background-color: #a53ef7!important;
+    box-shadow: 0 0 0 0.25rem #a53ef780!important;
+}
+
+.btn-check:active+.btn-primary:focus, .btn-check:checked+.btn-primary:focus, .btn-primary.active:focus, .btn-primary:active:focus, .show>.btn-primary.dropdown-toggle:focus{
+    box-shadow: 0 0 0 0.25rem #a53ef780!important;
+}

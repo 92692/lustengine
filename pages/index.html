@@ -1,12 +1,76 @@
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="description" content="">
+    <meta name="author" content="">
+
+    <script src='/libs/jquery/jquery-3.6.0.min.js'></script>
+
+    <script src="https://pixijs.download/release/packages/constants.js"></script>
+    <script src="https://pixijs.download/release/packages/math.js"></script>
+    <script src="https://pixijs.download/release/packages/runner.js"></script>
+    <script src="https://pixijs.download/release/packages/settings.js"></script>
+    <script src="https://pixijs.download/release/packages/ticker.js"></script>
+    <script src="https://pixijs.download/release/packages/utils.js"></script>
+    <script src="https://pixijs.download/release/packages/display.js"></script>
+    <script src="https://pixijs.download/release/packages/core.js"></script>
+    <script src="https://pixijs.download/release/packages/sprite.js"></script>
+    <script src="https://pixijs.download/release/packages/app.js"></script>
+    <script src="https://pixijs.download/release/packages/graphics.js"></script>
+    <script src="https://pixijs.download/release/packages/interaction.js"></script>
+    <script>
+        PIXI.Renderer.registerPlugin('batch', PIXI.BatchRenderer);
+        PIXI.Renderer.registerPlugin('interaction', PIXI.InteractionManager);
+        PIXI.Application.registerPlugin(PIXI.TickerPlugin);
+    </script>
 
 
-<div class="jumbotron p-3 p-md-5" style="margin-top: 40px;
-    background-color: #ffffffa8;
-    box-shadow: 0 0px 8px #bc9aff85;
-    border-radius: 14px;">
-    <div class="col-md-6 px-0">
-        <h1 class="display-4">Красивая картинка</h1>
-        <p class="lead my-3">Текст и тест  и тест  и тест  и тест  и тест  и тест  и тест  и тест  и тест  и тест  и тест  и тест  и тест  и тест  и тест  и тест  и тест  и тест  и тест  .</p>
-        <p class="lead mb-0"><a href="#" class="text-white font-weight-bold">Continue reading...</a></p>
-    </div>
-</div>
+    <script src='/libs/engine/misc.js?<?= time() ?>'></script>
+    <script src='/libs/engine/preload.js?<?= time() ?>'></script>
+    <script src='/libs/engine/audio.js?<?= time() ?>'></script>
+    <script src='/libs/engine/menu.js?<?= time() ?>'></script>
+    <script src='/libs/engine/dialog.js?<?= time() ?>'></script>
+    <script src='/libs/engine/display.js?<?= time() ?>'></script>
+    <script src='/libs/engine/icon.js?<?= time() ?>'></script>
+    <script src='/libs/engine/map.js?<?= time() ?>'></script>
+    <script src='/libs/engine/main.js?<?= time() ?>'></script>
+
+
+
+    <link href="/css/main.css?<?= time() ?>" rel="stylesheet">
+    <link href="/css/controls.css?<?= time() ?>" rel="stylesheet">
+    <link href="/css/fontello.css?<?= time() ?>" rel="stylesheet">
+
+
+
+    <!--
+        <script src="../../engine/js/lib/pixi-filters.js"></script>
+        <script src="../../engine/js/lib/particle-emitter.js"></script>
+        <script src="../../engine/js/lib/particle-fog.js"></script>
+
+
+
+
+        <script src='../../engine/js/lib/vanilla.js?<?= time() ?>'></script>
+        <script src='../../engine/js/lib/event.js?<?= time() ?>'></script>
+
+
+
+
+
+        <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.2.0/css/font-awesome.min.css" rel="stylesheet">
+
+    -->
+
+</head>
+<body>
+	<header><?php include 'menu.html' ?></header>
+	<main><?php include 'main.html' ?></main>
+</body>
+<footer>
+    <?php foreach($js_files as $file) { ?>
+        <script src='/<?= $file ?>?<?= time() ?>'></script> 
+    <?php } ?>
+</footer>
+</html>
