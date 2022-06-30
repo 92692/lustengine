@@ -1,4 +1,4 @@
-var app = null;
+var app = new PIXI.Application();
 
 
 class DisplayApi
@@ -14,6 +14,7 @@ class DisplayApi
         this.backContainer = new PIXI.Container();
         this.backContainer.addChild(this.backSprite);
 
+        app.destroy();
         app = new PIXI.Application({
             width: 0, 
             height: 0, 
@@ -30,7 +31,7 @@ class DisplayApi
     }
 
     load() {
-        $('#background')[0].appendChild(app.view);
+        id('background').appendChild(app.view);
         window.addEventListener("resize", this.onResize.bind(this), false);
     }
 
@@ -61,6 +62,8 @@ class DisplayApi
 
     async img(name) {
 
+        console.log('img(' + name + ')');
+
         let texture = await PIXI.Texture.fromURL(Preload.get(name));
         let sprite = new PIXI.Sprite(texture);
         sprite.alpha = 0;
@@ -75,6 +78,7 @@ class DisplayApi
 
         this.backSprite.destroy();
         this.backSprite = sprite;
+        console.log('end img(' + name + ')');
     }
 
 

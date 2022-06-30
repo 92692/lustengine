@@ -1,7 +1,7 @@
 
 var POINT_TRANSPARENCY = 0.8;
 
-class Map
+class MapApi
 {
 
     constructor(texture = null) {
@@ -72,12 +72,13 @@ class Map
             return;
         }
 
+        this.onResize()
         this.container.alpha=0;
         this.container.visible=true;
 
-        let height = Display.backContainer.height;
+        let height = Display.height;
         let mask = new PIXI.Graphics();
-        mask.drawRect(0, Display.backSprite.y, Display.backSprite.width, Display.backSprite.height);
+        mask.drawRect(0, Display.y, Display.width, Display.height);
         mask.endFill();
         this.container.mask = mask;
         this.container.y = -height;
@@ -189,8 +190,41 @@ class Map
     }
 
     onResize() {
+
         console.log('OnResize: Map');
-        Display.setPosition(this.backSprite, 90, 90);
+
+        let ratio   = this.backSprite.width / this.backSprite.height;
+        let width   = Display.width;
+        let height  = Display.height;
+        let pw_max=90, ph_max=90, w=0, h=0, pw=0, ph=0;
+
+        // подбираем оптимальный размер спрайта
+        for (let i = 1; i < 10000; i++) {
+
+            w  = i;
+            h  = w / ratio;
+            pw = percentage(w, width);
+            ph = percentage(h, height);
+
+            if (pw > pw_max || ph > ph_max) {
+                break;
+            }
+        }
+
+
+        // задаем размер и позицию спрайта
+        this.backSprite.width = w;
+        this.backSprite.height = h;
+        this.backSprite.x = (app.renderer.width - w) / 2;
+        this.backSprite.y = (app.renderer.height - h) / 2;
+
+
+        // resolution fix
+        this.backSprite.width = w / app.renderer.resolution;
+        this.backSprite.height = h / app.renderer.resolution;
+
+        this.backSprite.x = this.backSprite.x / app.renderer.resolution;
+        this.backSprite.y = this.backSprite.y / app.renderer.resolution;
     }
 
 }

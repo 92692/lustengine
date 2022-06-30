@@ -319,16 +319,13 @@ body {
     text-align: left;
     position: absolute;
 	color: rgb(255, 255, 255);
-	box-shadow: rgb(0 0 0 / 50%) 0px -8px 8px 0px;
-	/*box-shadow: rgb(0 0 0 / 50%) 0px 6px 14px 18px;*/
+	box-shadow: rgb(0 0 0 / 50%) 0px -4px 4px 0px;
 
 }
 
 #dialog:hover{
 	background-color: rgba(0, 0, 0, 0.55);
-	box-shadow: rgb(0 0 0 / 55%) 0px -8px 8px 0px;
-
-	/*box-shadow: rgb(0 0 0 / 55%) 0px 6px 14px 18px;*/
+	box-shadow: rgb(0 0 0 / 60%) 0px -4px 4px 0px;
 }
 
 .choises-off{visibility:hidden!important;}
@@ -345,16 +342,52 @@ body {
 	letter-spacing: 1px;
 }
 
-.dialog-text{
+.dialog-header { padding: 1vh 6vw 0vh 6vw; }
+.dialog-text { padding: 0.6em 6vw 4vh 6vw; }
+.dialog-text-hide{ padding: 0 6vw 0vh 0vw; }
+
+.dialog-text>span {
 	display: block;
     margin: 0;
 	font-size: 2rem;
 	word-wrap: break-word;
 }
 
-#dialog-text-hide{
+.dialog-text-hide {
+	position: absolute;
 	visibility: hidden
 }
+
+
+
+
+/* DIALOG SLIM */
+.dialog-slim {
+	min-height: unset!important;
+	background-color: unset!important;
+	box-shadow: unset!important;
+}
+.dialog-slim:hover {
+	background-color:  unset!important;
+	box-shadow:  unset!important;
+}
+
+.dialog-slim .dialog-text {
+	background-color: rgba(0, 0, 0, 0.5);
+	box-shadow: rgb(0 0 0 / 50%) 0px -4px 4px 0px;
+}
+
+.dialog-slim .dialog-text:hover {
+	background-color: rgba(0, 0, 0, 0.55);
+	box-shadow: rgb(0 0 0 / 60%) 0px -4px 4px 0px;
+}
+.dialog-slim .dialog-header{ padding: 1vh 6vw 0.6em 6vw;}
+.dialog-slim * #dialog-name{ text-shadow: 1px 0 1px #000, 0 1px 1px #000, -1px 0 1px #000, 0 -1px 1px #000;}
+
+
+
+
+
 
 @keyframes blink { 50% { opacity: 1; } 100% { opacity: 0; } }
 .blink {animation: blink 0.4s steps(1, start) infinite alternate;}

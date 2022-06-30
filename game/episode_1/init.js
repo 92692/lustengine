@@ -37,12 +37,13 @@ var GAME_FILES = [
     'map/map-point-1.png',
     'map/map-point-2.png',
 
+    /*
     'map/point/img-point1.jpg',
     'map/point/img-point2.jpg',
     'map/point/img-point3.jpg',
     'map/point/img-point4.jpg',
     'map/point/img-point5.jpg',
-
+*/
 
     /* game slides */
     'img/intro_1.jpg',
@@ -93,11 +94,12 @@ async function initGame() {
 
 async function initScene() {
 
+    Dialog.setCharacter('');
     Dialog.setCharacter('Intro', 'Red');
     Dialog.setCharacter('Angel');
     Dialog.setCharacter('Michael');
 
-    img('intro_1.jpg');
+    await img('intro_1.jpg');
 
 
     // init player icon
@@ -107,15 +109,18 @@ async function initScene() {
     iconMap.texture = await getTexture('map');
 
     // init map
-    mapMain = new Map(await getTexture('map-back'));
-    mapMain.addPoint('map-door-1',  await getTexture('map-point-1'), 553, 409, async ()=> await callPoint1());
-    mapMain.addPoint('map-door-2',  await getTexture('map-point-2'), 986, 810, async ()=> await callPoint2());
-
+    map = new MapApi(await getTexture('map-back'));
+    map.addPoint('map-door-1',  await getTexture('map-point-1'), 553, 409, async ()=> await callPoint1());
+    map.addPoint('map-door-2',  await getTexture('map-point-2'), 986, 810, async ()=> await callPoint2());
+    map.addPoint('map-close', await getTexture('map-close'), 1820, 75, async ()=> {
+        Audio.playSound('map-close.ogg');
+        await map.fadeOut();
+    });
 
     // map click
     iconMap.onClick = async function () {
         Audio.playSound('click-map-open');
-        await mapMain.fadeIn();
+        await map.fadeIn();
     };
 
     runIconMainUpdater();

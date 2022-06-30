@@ -1,4 +1,5 @@
 
+var ICON_NUMBER = 1;
 
 /*
     Иконка персонажа и все с ней связанное
@@ -6,9 +7,9 @@
 class IconApi
 {
 
-    constructor(number = 1) {
+    constructor() {
 
-        this.number = number;
+        this.number = ICON_NUMBER++;
         this.ratio = 0.075;
         this.transparency = 0.75
         this.xOffset = 20;
@@ -87,7 +88,6 @@ class IconApi
 
     onResize() {
 
-
         // set size
         let size = Math.ceil(Display.width * this.ratio);
         this.spriteIcon.width = size;
@@ -103,7 +103,6 @@ class IconApi
 
         this.spriteIcon.x = offset;
         this.spriteIcon.y = Display.y + this.yOffset;
-
     }
 
     onClick() {

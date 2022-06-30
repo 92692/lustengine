@@ -2,6 +2,8 @@
 /* 
 	ENVIRONMENT 
 */
+
+
 var Audio    = null;
 var Preload  = null;
 var Menu	 = null;
@@ -9,7 +11,7 @@ var Dialog	 = null;
 var Display  = null;
 var iconMain = null;
 var iconMap  = null;
-var mapMain  = null;
+var map  	 = null;
 var Stats = {
 	'sex': 'female',
 	'lust_cur': 0,
@@ -43,10 +45,10 @@ $(document).ready(function () {
 	Audio 	 = new AudioApi();
 	Preload  = new PreloadApi();
 	Menu	 = new MenuApi();
-	Dialog	 = new DialogApi();
 	Display  = new DisplayApi();
-	iconMain = new IconApi(1);
-	iconMap  = new IconApi(2);
+	Dialog	 = new DialogApi();
+	iconMain = new IconApi();
+	iconMap  = new IconApi();
 
 	/* SHORT API SET */
 	img 	  = async function (name) { await Display.img(name) }
@@ -56,9 +58,9 @@ $(document).ready(function () {
 	getTexture= async function (name) { return await PIXI.Texture.fromURL(Preload.get(name)) }
 	getSprite = async function (name) { return new PIXI.Sprite(await getTexture(name))}
 
+	Display.load();
 	Dialog.load();
 	Menu.loadOptions();
-	Display.load();
 
 	// HOTKEYS
 	document.onkeydown = function(e) { 

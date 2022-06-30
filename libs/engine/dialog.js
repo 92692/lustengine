@@ -13,10 +13,10 @@ class DialogApi
 		this.elText			= false;
 		this.elName			= false;
 		this.elTextShow		= false;
-		this.elTextHide		= false;
 		this.elMenu			= false;
 		this.elChoises		= false;
 		this.textTime		= 50;
+
 		this.dialogClicked	= false;
 	}
 
@@ -24,14 +24,22 @@ class DialogApi
 
 		this.elText			= document.getElementById('dialog');
 		this.elName			= document.getElementById('dialog-name');
-		this.elTextShow		= document.getElementById('dialog-text-show');
-		this.elTextHide		= document.getElementById('dialog-text-hide');
+		this.elTextShow		= document.querySelector('.dialog-text-show');
 		this.elMenu 		= document.getElementById('menu');
 		this.elChoises		= document.getElementById('choices');
 
-		$(this.elText).click(function(){
-			Dialog.dialogClicked = true;
+		$(this.elText).click(function() {
+
+			if (Dialog.dialogClicked === -1) {
+				console.log('[BLOCKED!] click function! ' + this.dataset.id);
+			} else {
+				console.log('click function! ' + this.dataset.id);
+				Dialog.dialogClicked = true;
+			}
+
 		});
+
+		window.addEventListener("resize", this.onResize.bind(this), false);
 	}
 
 
@@ -109,16 +117,11 @@ class DialogApi
 	}
 
 
-	
-	clearDialog() {
-		this.elName.innerHTML = ' ';
-		this.elTextShow.innerHTML = ' ';
-		this.dialogClicked = false;
-	}
 
 	async show() {
 
 		if (!this.isDialogVisible()) {
+			this.onResize()
 			this.elText.classList.remove('hidden');
 			await sleep(TRANSITION_MS);
 		}
@@ -136,56 +139,82 @@ class DialogApi
 	}
 
 
-	async say(character, text, showMini=false, showPortrait=false) {
 
-		console.log('START DIALOG: ' + text);
-		iconMap.visible = false;
-		Dialog.dialogClicked = false;
+
+	async say(character, text = null, showMini=false, showPortrait=false) {
+
 		let ms = 100 - this.textTime;
-		this.clearDialog();
+		let blink = "<span id='dialog-blink' class='blink'>_</span>";
+
+		console.log('START DIALOG');
+
+		if (this.dialogClicked === true) {
+			throw new Error('Прошлый диалог не был закончен')
+		}
+
+		if (text === null) {
+			text = character;
+			character = '';
+		}
+
+		iconMap.visible = false;
+		this.dialogClicked = false;
 		this.elName.style.color = this.cache[character].color;
 		this.elName.innerHTML = this.cache[character].name;
-		this.elTextShow.innerHTML = text[0];
-		this.elTextHide.innerHTML = text.substring(1) + '_';
+		this.elTextShow.innerHTML = text + blink;
+
+		await sleep(10);
+		let style = getComputedStyle(this.elTextShow);
+		this.elTextShow.style.width = style.width;
+		this.elTextShow.style.height = style.height;
+		this.elTextShow.innerHTML = '';
+
 		this.show();
 
 
-		while(this.elTextHide.innerHTML.length !== 0) {
+		while (text.length > 0) {
 			
-			let t = ms;
+			let t = (text[0] === '.') ? ms*5 :  ms;
 
-			if (this.elTextHide.innerHTML[0] === '.') {
-				t *= 5;
-			}
+			if (this.dialogClicked) {
 
-			if (Dialog.dialogClicked) {
 				console.log('DIALOG: clicked!');
-				this.elTextShow.innerHTML += this.elTextHide.innerHTML;
-				this.elTextHide.innerHTML = '';
-				Dialog.dialogClicked=false;
+				this.elTextShow.innerHTML += text;
+				this.dialogClicked = false;
 				break;
-
-			} else {
-				this.elTextShow.innerHTML += this.elTextHide.innerHTML[0];
-				this.elTextHide.innerHTML = this.elTextHide.innerHTML.substring(1);
 			}
+
+			this.elTextShow.innerHTML += text[0];
+			text = text.substring(1);
 
 			await sleep(t);
 		}
 
-		let t = this.elTextShow.innerHTML;
-		this.elTextShow.innerHTML = t.substring(0, t.length-1) + "<span id='dialog-blink' class='blink'>_</span>";
+
+		this.elTextShow.innerHTML += blink;
+		this.elTextShow.style.width = 'unset';
+		this.elTextShow.style.height = 'unset';
 
 		// wait click
-		while (!Dialog.dialogClicked) {
+		console.log('WAIT DIALOG');
+
+		while (!this.dialogClicked) {
 			await sleep(50);
 		}
 
-
-		console.log('END DIALOG: ' + text);
+		this.dialogClicked = -1;
+		console.log('END DIALOG');
 	}
 
 
+	onResize() {
+
+		console.log('onResize: Dialog');
+		//this.elText.style.bottom = Math.round(Display.y) + 'px';
+		let x = (app.renderer.height - (Display.y+Display.height));
+		this.elText.style.bottom =  Math.round(x) + 'px';
+
+	}
 
 
 }
