@@ -95,7 +95,8 @@ class DialogApi
 				// при клике по варианту
 				el.click(()=> {
 
-					this.elChoises.classList.add('hidden');
+					$(this.elChoises).addClass('hidden').removeClass('choices-show')
+
 					this.choised[choise_id] = obj;
 				})
 			}
@@ -103,8 +104,9 @@ class DialogApi
 			$('.chbox-body').append(el);
 		}
 
-		// показываем форму 
-		this.elChoises.classList.remove('hidden');
+		// показываем форму
+		$(this.elChoises).addClass('choices-show').removeClass('hidden')
+
 
 		// ждем выбора и выполнения функций
 		console.log('CHOISE '+choise_id+': wait');

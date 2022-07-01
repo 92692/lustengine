@@ -144,7 +144,7 @@ span{-webkit-touch-callout: none;-webkit-user-select: none;-khtml-user-select: n
 	visibility: hidden;
 	position: absolute;
     left: -100%;
-    background: #24247099;
+    background: #8477a87d;
 	transition: all 0.5s ease;
 	z-index: 90;
 }
@@ -420,15 +420,17 @@ body {
 
 
 /* CHOICES */
-#choices{
+.choices {
 	display: flex;
+	flex-direction: column;
 	flex-wrap: wrap;
 	justify-content: center;
-	position: absolute;
-    z-index: 10;
+	position: fixed;
+	z-index: 10;
 	background-color: #3a3a3a9e;
-
+	transition: all 0.5s ease;
 }
+
 
 #choices div{
 	display: flex;
@@ -436,6 +438,30 @@ body {
 	justify-content: center;
 	flex-direction: column;
 }
+
+.choices-center {
+	background-color:unset!important;
+}.choices-center .chbox{
+	 background: radial-gradient(circle, rgba(58,58,58,1) 0%, rgba(28,28,28,1) 47%, rgba(43,43,43,0) 100%);
+}
+
+
+
+
+.choices-right {
+	background-color:unset!important;
+	right:-100%
+}.choices-right .chbox{
+	 align-items: flex-end!important;
+	 background: linear-gradient(90deg, rgba(58,58,58,1) 0%, rgba(43,43,43,0) 0%, rgba(28,28,28,1) 50%);
+}.choices-right * .chbox-body{
+	align-items: flex-end;
+}
+
+.choices-show.choices-right{
+	right:0;
+}
+
 
 
 .chbox-item {
@@ -460,6 +486,17 @@ body {
 .chbox-item:hover {
 	background: #8a8a8aab;
 }
+
+
+
+
+
+
+
+
+
+
+
 
 
 .obvod{
