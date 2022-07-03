@@ -37,10 +37,20 @@ async function scenario() {
     await say('Intro', 'Кажеться я нашла карту.')
     await img('intro_3');
 
-    while (1) {
-        let x = await Dialog.choise(['Валера', 'Бэбра', 'Вася', 'Пиривееет!']);
-        await say('Intro', x)
-    }
+
+    await Dialog.choise({
+
+        'Дрожжание' : async ()=> {
+            await Display.effectShake();
+        },
+        'Здравствуйте' : async ()=> {
+            await say('И вам не хворать')
+            Dialog.hide();
+        }
+
+
+    });
+
 
 
     iconMain.fadeIn();

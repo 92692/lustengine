@@ -19,6 +19,12 @@ var Stats = {
 	'skills': [],
 	'cache' : 0,
 };
+var SkillCheck = {
+	'enabled': false,
+	'pressed': false,
+	'success': 0,
+	'fails'	 : 0,
+}
 
 /* 
 		MACROS 
@@ -71,7 +77,15 @@ $(document).ready(function () {
 		if(e.keyCode === 13){Dialog.sayClick();}
 
 		// Space
-		if(e.keyCode === 32){Dialog.sayClick();}
+		if(e.key === " " || e.code === "Space") {
+
+			if (SkillCheck.enabled) {
+				SkillCheck.pressed = true;
+
+			} else {
+				Dialog.sayClick();
+			}
+		}
 	}
 
 	initGame();

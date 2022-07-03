@@ -46,3 +46,9 @@ async function sleep(ms){
 function percentage(value, max, min=0) {
     return 100 * (value - min) / (max - min)
 }
+
+function random(min, max) {
+    return Math.floor(
+        Math.random() * (max - min) + min
+    )
+}
