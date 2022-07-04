@@ -40,7 +40,7 @@ async function alex() {
         // check key is pressed;
         tickZone+=4;
         if(tickZone > 360){tickZone-=360}
-        tick.style.transform = "translate(62px, 68px) rotate(" + tickZone + "deg)";
+        tick.style.transform = "translate(50%, 0%) rotate(" + tickZone + "deg)";
 
         await sleep(13);
     }
@@ -54,7 +54,6 @@ async function alex() {
 */
 
     // check result
-    tickZone+=180;
     while(tickZone > 360) { tickZone-=360 }
 
     console.log(randZone);
