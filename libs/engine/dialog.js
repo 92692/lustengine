@@ -53,7 +53,18 @@ class DialogApi
 	}
 
 	/**
-	 * выбор
+	 * меню выбора вариантов ответа, пример
+	 *
+	 * let result = choise(['1','2','3']);
+	 *
+	 * let result1 = choise({
+	 *    'тряска':  : async ()=>{
+	 *             await Display.effectShake();
+	 *     },
+	 *     'приветствие':  : async ()=>{
+	 *             await say('привет');
+	 *     },
+	 * }
 	 *
 	 * @param {array} variants - массив вариантов ответа
 	 */
@@ -212,8 +223,9 @@ class DialogApi
 	onResize() {
 
 		console.log('onResize: Dialog');
-		//this.elText.style.bottom = Math.round(Display.y) + 'px';
-		let x = (app.renderer.height - (Display.y+Display.height));
+
+		let appHeight = app.renderer.height/window.devicePixelRatio;
+		let x = (appHeight - (Display.y+Display.height));
 		this.elText.style.bottom =  Math.round(x) + 'px';
 
 	}

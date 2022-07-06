@@ -17,14 +17,248 @@
 
 <section class='screen nodisplay choices ' id='skill-check'>
 
+	<div class="minigame" style="
+	display: flex;
+    flex-direction: column;
+    align-content: center;
+    justify-content: center;
+    align-items: center;">
 
-	<div id="skillcheck">
-		<div id="zone"></div>
-		<div id="tick">
-			<div id="redtick"></div>
+		<div id="skillcheck">
+			<div id="zone"></div>
+			<div id="tick">
+				<div id="redtick"></div>
+			</div>
+			<div id="customkeyoverlay" style="display: none">Space</div>
+
 		</div>
-		<div id="customkeyoverlay"><p class="customkeytxt">Space</p></div>
+
+		<div class="skill-stats">
+
+			<div class="stat">
+				<input type="checkbox" id="btn-1">
+				<label class="check" for="btn-1">
+					<div class="inner-check"></div>
+				</label>
+				<div class="circle-1">
+				</div>
+				<div class="circle-2">
+					<div class="line-group">
+						<div class="line"></div>
+						<div class="line"></div>
+						<div class="line"></div>
+						<div class="line"></div>
+						<div class="line"></div>
+						<div class="line"></div>
+						<div class="line"></div>
+						<div class="line"></div>
+						<div class="line"></div>
+						<div class="line"></div>
+					</div>
+				</div>
+			</div>
+
+			<div class="stat">
+				<input type="checkbox" id="btn-2">
+				<label class="check" for="btn-2">
+					<div class="inner-check"></div>
+				</label>
+				<div class="circle-1">
+				</div>
+				<div class="circle-2">
+					<div class="line-group">
+						<div class="line"></div>
+						<div class="line"></div>
+						<div class="line"></div>
+						<div class="line"></div>
+						<div class="line"></div>
+						<div class="line"></div>
+						<div class="line"></div>
+						<div class="line"></div>
+						<div class="line"></div>
+						<div class="line"></div>
+					</div>
+				</div>
+			</div>
+
+			<div class="stat">
+				<input type="checkbox" id="btn-3">
+				<label class="check" for="btn-3">
+					<div class="inner-check"></div>
+				</label>
+				<div class="circle-1">
+				</div>
+				<div class="circle-2">
+					<div class="line-group">
+						<div class="line"></div>
+						<div class="line"></div>
+						<div class="line"></div>
+						<div class="line"></div>
+						<div class="line"></div>
+						<div class="line"></div>
+						<div class="line"></div>
+						<div class="line"></div>
+						<div class="line"></div>
+						<div class="line"></div>
+					</div>
+				</div>
+			</div>
+
+
+
+
+			<style>
+
+				.skill-stats{
+					display: flex;
+				}
+
+				.stat {
+					position: relative;
+					display: flex;
+					align-items: center;
+					justify-content: center;
+					margin: 10px;
+				}
+				.stat input {
+					display: none;
+				}
+				.stat input:checked ~ .circle-1 {
+					animation: circle 0.6s forwards;
+				}
+				.stat input:checked ~ .circle-2 {
+					animation: circle 0.5s ease 0.1s forwards;
+				}
+				.stat input:checked ~ .check .inner-check {
+					animation: inner-check 0.6s cubic-bezier(0.1, 1, 0.1, 1) forwards;
+				}
+				.stat .check {
+					position: relative;
+					z-index: 10;
+					display: flex;
+					align-items: center;
+					justify-content: center;
+					cursor: pointer;
+					height: 40px;
+					width: 40px;
+					background: #c498e2;
+					border-radius: 50%;
+				}
+				.stat .check .inner-check {
+					width: 32px;
+					height: 32px;
+					border-radius: 50%;
+					background: #3b283c;
+					animation: inner-check-rev 0.5s;
+				}
+				.stat .circle-1,
+				.stat .circle-2 {
+					position: absolute;
+					width: 70px;
+					height: 70px;
+					transform: scale(0);
+					border-radius: 50%;
+					border: 4px solid #c498e2;
+					animation: circle-rev 0.5s;
+				}
+				.stat .circle-2 {
+					width: 100px;
+					height: 100px;
+				}
+				.stat .circle-2 .line-group {
+					height: 14px;
+					width: 2px;
+					position: absolute;
+					top: 0;
+					left: 0;
+					right: 0;
+					bottom: 0;
+					margin: auto;
+				}
+				.stat .circle-2 .line-group .line {
+					position: absolute;
+					width: 2px;
+					height: 14px;
+					background: #c498e2;
+				}
+				.stat .circle-2 .line-group .line:nth-child(1) {
+					transform: rotate(36deg) translateY(-80px);
+				}
+				.stat .circle-2 .line-group .line:nth-child(2) {
+					transform: rotate(72deg) translateY(-80px);
+				}
+				.stat .circle-2 .line-group .line:nth-child(3) {
+					transform: rotate(108deg) translateY(-80px);
+				}
+				.stat .circle-2 .line-group .line:nth-child(4) {
+					transform: rotate(144deg) translateY(-80px);
+				}
+				.stat .circle-2 .line-group .line:nth-child(5) {
+					transform: rotate(180deg) translateY(-80px);
+				}
+				.stat .circle-2 .line-group .line:nth-child(6) {
+					transform: rotate(216deg) translateY(-80px);
+				}
+				.stat .circle-2 .line-group .line:nth-child(7) {
+					transform: rotate(252deg) translateY(-80px);
+				}
+				.stat .circle-2 .line-group .line:nth-child(8) {
+					transform: rotate(288deg) translateY(-80px);
+				}
+				.stat .circle-2 .line-group .line:nth-child(9) {
+					transform: rotate(324deg) translateY(-80px);
+				}
+				.stat .circle-2 .line-group .line:nth-child(10) {
+					transform: rotate(360deg) translateY(-80px);
+				}
+
+				@keyframes circle {
+					0% {
+						transform: scale(0);
+					}
+					50% {
+						opacity: 1;
+					}
+					100% {
+						transform: scale(1);
+						opacity: 0;
+					}
+				}
+				@keyframes circle-rev {
+					0% {
+						transform: scale(1);
+						opacity: 0;
+					}
+					50% {
+						opacity: 1;
+					}
+					100% {
+						transform: scale(0);
+					}
+				}
+				@keyframes inner-check {
+					0% {
+						transform: scale(1);
+					}
+					100% {
+						transform: scale(0);
+					}
+				}
+				@keyframes inner-check-rev {
+					0% {
+						transform: scale(0);
+					}
+					100% {
+						transform: scale(1);
+					}
+				}
+
+
+			</style>
+		</div>
 	</div>
+
+
 
 
 
@@ -33,7 +267,7 @@
 	<style>
 		div#skillcheck {
 			margin: auto;
-			margin-top: 40vh;
+			/*margin-top: 40vh;*/
 			width: 180px;
 			height: 180px;
 			transition-duration: 100ms;
@@ -50,6 +284,7 @@
 			background-repeat: round;
 			transform: rotate(0deg);
 			opacity: 0.7;
+			transition: all 1s ease 0s;
 		}
 
 		div#tick {
@@ -67,7 +302,7 @@
 			left: -6px;
 			height: 100px;
 			position: fixed;
-			top: 0px;
+			top: -20px;
 			background: #ff3333;
 			background: -webkit-radial-gradient(#ff00ee, rgba(255,0,0,0.0), rgba(255,0,0,0));
 			background: -o-radial-gradient(#ff00ee, rgba(255,0,0,0.0), rgba(255,0,0,0));
@@ -77,12 +312,14 @@
 
 		#customkeyoverlay {
 			position: fixed;
-			margin-top: 50px;
-			margin-left: 14px;
+			display: flex;
+			margin-top: 73PX;
+			padding: 8px 12px;
+			margin-left: 57px;
 			background: #010000;
 			color: #757474;
-			border: 2px solid #d7d5d9;
-			border-radius: 7px;
+			border: 1px solid #d7d5d9;
+			border-radius: 8px;
 		}
 	</style>
 </section>

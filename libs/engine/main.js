@@ -69,7 +69,12 @@ $(document).ready(function () {
 	Menu.loadOptions();
 
 	// HOTKEYS
-	document.onkeydown = function(e) { 
+	document.onkeydown = function(e) {
+
+
+		console.log('KEY EVENT: ' + event.key + '/' + event.code);
+
+
 		// Escape
 		if(e.keyCode === 27){Menu.Esc();}
 
@@ -86,6 +91,13 @@ $(document).ready(function () {
 				Dialog.sayClick();
 			}
 		}
+
+		// Press D
+		if(e.keyCode === 68) {
+			scriptDebug();
+		}
+
+
 	}
 
 	initGame();

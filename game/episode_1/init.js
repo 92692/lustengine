@@ -11,15 +11,16 @@ var GAME_FILES = [
             '/bar/scene_3.jpg',
     */
 
-
-
-
     /* audio */
     'sound/bg_theme.mp3',
     'sound/click.mp3',
     'sound/flick.wav',
     'sound/click-map-close.ogg',
     'sound/click-map-open.wav',
+
+    'sound/skillcheck_success_00.wav',
+    'sound/skillcheck_fail_00.wav',
+
 
     /* effects */
     'effects/love.png',
@@ -45,7 +46,9 @@ var GAME_FILES = [
     'map/point/img-point5.jpg',
 */
 
-    /* game slides */
+    /*
+    *       GAME SLIDES
+    * */
     'img/intro_1.jpg',
     'img/intro_2.jpg',
     'img/intro_3.jpg',

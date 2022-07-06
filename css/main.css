@@ -144,7 +144,7 @@ span{-webkit-touch-callout: none;-webkit-user-select: none;-khtml-user-select: n
 	visibility: hidden;
 	position: absolute;
     left: -100%;
-    background: #8477a87d;
+    background: #6255897d;
 	transition: all 0.5s ease;
 	z-index: 90;
 }
@@ -181,9 +181,9 @@ span{-webkit-touch-callout: none;-webkit-user-select: none;-khtml-user-select: n
 }
 
 .menu-btn:hover {
-	color: #b1cfff;
-	background-color: rgba(162, 214, 255, 0.4);
-	box-shadow: 0 0 4px rgb(162, 214, 255);
+	color: #dcd0ff;
+	background-color: #8477a87d;
+	box-shadow: 0 0 4px #8477a87d;
 	text-decoration: none;
 }
 
@@ -191,7 +191,7 @@ span{-webkit-touch-callout: none;-webkit-user-select: none;-khtml-user-select: n
 
 .options-menu{
 	display: none;
-	color: #b1cfff;
+	color: #e6deff;
 }
 
 .options-header{

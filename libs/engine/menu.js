@@ -192,21 +192,21 @@ class MenuApi
 		
 		let p1 =  options.musicVolume * 100;
 		$('#music-volume')[0].value = p1;
-		$('#music-volume')[0].style.background = 'linear-gradient(90deg, #03a9f4 '+p1+'%, #646360 '+p1+'%)';
+		$('#music-volume')[0].style.background = 'linear-gradient(90deg, #d3c4ff '+p1+'%, #646360 '+p1+'%)';
 		
 		let p2 =  options.soundVolume * 100;
 		$('#sound-volume')[0].value = p2;
-		$('#sound-volume')[0].style.background = 'linear-gradient(90deg, #03a9f4 '+p2+'%, #646360 '+p2+'%)';
+		$('#sound-volume')[0].style.background = 'linear-gradient(90deg, #d3c4ff '+p2+'%, #646360 '+p2+'%)';
 		
 		let p3 =  options.textTime;
 		$('#text-volume')[0].value = p3;
-		$('#text-volume')[0].style.background = 'linear-gradient(90deg, #03a9f4 '+p3+'%, #646360 '+p3+'%)';
+		$('#text-volume')[0].style.background = 'linear-gradient(90deg, #d3c4ff '+p3+'%, #646360 '+p3+'%)';
 		
 
 		$('#music-volume').on('change input', function(){
 
 			let p = this.value;
-			this.style.background = 'linear-gradient(90deg, #03a9f4 '+p+'%, #646360 '+p+'%)';
+			this.style.background = 'linear-gradient(90deg, #d3c4ff '+p+'%, #646360 '+p+'%)';
 			let volume = p / 100;
 			Audio.music.volume = volume;
 			Menu.Save();
@@ -216,7 +216,7 @@ class MenuApi
 		$('#sound-volume').on('change input', function(){
 
 			let p = this.value;
-			this.style.background = 'linear-gradient(90deg, #03a9f4 '+p+'%, #646360 '+p+'%)';
+			this.style.background = 'linear-gradient(90deg, #d3c4ff '+p+'%, #646360 '+p+'%)';
 			let volume = p / 100;
 			Audio.sound.volume = volume;
 			sound('flick');
@@ -225,7 +225,7 @@ class MenuApi
 		
 		$('#text-volume').on('change input', function(){
 			let p = this.value;
-			this.style.background = 'linear-gradient(90deg, #03a9f4 '+p+'%, #646360 '+p+'%)';
+			this.style.background = 'linear-gradient(90deg, #d3c4ff '+p+'%, #646360 '+p+'%)';
 			Dialog.textTime = parseInt(p);
 			Menu.Save();
 		});
