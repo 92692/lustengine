@@ -28,24 +28,19 @@ async function scenario() {
 
     await img('intro_1');
     await say('Intro', 'Как я оказалась здесь? Впереди какой то лес и еще много строк кода.')
-
     await img('intro_2');
     await say('Intro', 'Посмотрим что за тем мостом. Возможно там есть много вкусных наркотиков.')
     await say('Intro', 'А это  диалог.')
     await img('intro_3');
 
-
     await Dialog.choise({
 
         'Миниигра' : async ()=> {
 
-            let result = await new SkillCheckApi().start(3);
-
-            while (!result) {
+            while (!await new SkillCheckApi().start(3)) {
                 sleep(1000);
                 await say('Вы проиграли, попробуйте еще раз');
                 Dialog.hide();
-                result = await new SkillCheckApi().start(3);
             }
 
             await say('Вы подебили, еееее!');
@@ -54,7 +49,6 @@ async function scenario() {
             await say('И вам не хворать')
             Dialog.hide();
         }
-
     });
 
 
