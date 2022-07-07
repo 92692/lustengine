@@ -47,7 +47,6 @@ async function scenario() {
         },
         'Здравствуйте' : async ()=> {
             await say('И вам не хворать')
-            Dialog.hide();
         }
     });
 
