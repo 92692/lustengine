@@ -69,6 +69,11 @@ class SkillCheckApi
 
 
         SkillCheck.enabled = false;
+
+        this.screen.classList.add('nodisplay');
+        this.zone.style.opacity = "0";
+        this.tick.style.opacity = "0";
+        this.overlay.style.opacity = "0";
         return true;
     }
 

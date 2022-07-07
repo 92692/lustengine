@@ -46,6 +46,7 @@ class MenuApi
 				Dialog.elMenu.style.visibility='visible';
 				Dialog.elMenu.style.left='0';
 
+				$('main').addClass('glass');
 				$('.escmenu').hide();
 				$('#loading-div').hide();
 			break;
@@ -59,7 +60,8 @@ class MenuApi
 				if (this.restoreSay) {
 					Dialog.show();
 				}
-				
+
+				$('main').removeClass('glass');
 				$('.escmenu').show();
 				$('#loading-div').show();
 				
@@ -189,18 +191,18 @@ class MenuApi
 		Dialog.textTime 	= options.textTime;
 
 		console.log(Audio.music.volume)
-		
+
 		let p1 =  options.musicVolume * 100;
-		$('#music-volume')[0].value = p1;
-		$('#music-volume')[0].style.background = 'linear-gradient(90deg, #d3c4ff '+p1+'%, #646360 '+p1+'%)';
+		id('music-volume').value = p1;
+		id('music-volume').style.background = 'linear-gradient(90deg, #d3c4ff '+p1+'%, #646360 '+p1+'%)';
 		
 		let p2 =  options.soundVolume * 100;
-		$('#sound-volume')[0].value = p2;
-		$('#sound-volume')[0].style.background = 'linear-gradient(90deg, #d3c4ff '+p2+'%, #646360 '+p2+'%)';
+		id('sound-volume').value = p2;
+		id('sound-volume').style.background = 'linear-gradient(90deg, #d3c4ff '+p2+'%, #646360 '+p2+'%)';
 		
 		let p3 =  options.textTime;
-		$('#text-volume')[0].value = p3;
-		$('#text-volume')[0].style.background = 'linear-gradient(90deg, #d3c4ff '+p3+'%, #646360 '+p3+'%)';
+		id('text-volume').value = p3;
+		id('text-volume').style.background = 'linear-gradient(90deg, #d3c4ff '+p3+'%, #646360 '+p3+'%)';
 		
 
 		$('#music-volume').on('change input', function(){

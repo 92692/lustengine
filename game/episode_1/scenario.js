@@ -27,27 +27,33 @@ async function scenario() {
 
 
     await img('intro_1');
-
-    await say('Ведение, начинается тут. Бла бла бла бла бла бла бла бла.')
-    await say('Intro', 'Как я оказалась здесь? Черт его знает.')
+    await say('Intro', 'Как я оказалась здесь? Впереди какой то лес и еще много строк кода.')
 
     await img('intro_2');
-    await say('Intro', 'Как я оказалась здесь? Черт его знает.')
-    await say('Intro', 'Попробуем пойти сюда.')
-    await say('Intro', 'Кажеться я нашла карту.')
+    await say('Intro', 'Посмотрим что за тем мостом. Возможно там есть много вкусных наркотиков.')
+    await say('Intro', 'А это  диалог.')
     await img('intro_3');
 
 
     await Dialog.choise({
 
-        'Дрожжание' : async ()=> {
-            await Display.effectShake();
+        'Миниигра' : async ()=> {
+
+            let result = await new SkillCheckApi().start(3);
+
+            while (!result) {
+                sleep(1000);
+                await say('Вы проиграли, попробуйте еще раз');
+                Dialog.hide();
+                result = await new SkillCheckApi().start(3);
+            }
+
+            await say('Вы подебили, еееее!');
         },
         'Здравствуйте' : async ()=> {
             await say('И вам не хворать')
             Dialog.hide();
         }
-
 
     });
 
