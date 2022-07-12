@@ -2,16 +2,16 @@
 /* 
 	ENVIRONMENT 
 */
+const Sound 	 = new SoundApi();
+const SkillCheck = new SkillCheckApi();
+const Preload	 = new PreloadApi();
+const Menu	 	 = new MenuApi();
+const Dialog	 = new DialogApi();
+const Display	 = new DisplayApi();
+const iconMain	 = new IconApi();
+const iconMap	 = new IconApi();
+var map			 = null;
 
-
-var Audio    = null;
-var Preload  = null;
-var Menu	 = null;
-var Dialog	 = null;
-var Display  = null;
-var iconMain = null;
-var iconMap  = null;
-var map  	 = null;
 var Stats = {
 	'sex': 'female',
 	'lust_cur': 0,
@@ -19,61 +19,63 @@ var Stats = {
 	'skills': [],
 	'cache' : 0,
 };
-var SkillCheck = {
-	'enabled': false,
-	'pressed': false,
-	'success': 0,
-	'fails'	 : 0,
-}
+
 
 /* 
 		MACROS 
 */
-var img 	  = function(){};
-var music	  = function(){};
-var sound	  = function(){};
-var say		  = function(){};
-var getTexture= function(){};
-var getSprite = function(){};
+async function getTexture (name) {
+	return await PIXI.Texture.fromURL(Preload.get(name))
+}
 
-function сlick() {
-	Audio.playSound('click.mp3');
+async function getSprite (name) {
+	 return new PIXI.Sprite(await getTexture(name))
+}
+
+async function img(name) {
+
+	let item = Preload.getRaw(name);
+
+	if (item.music !== null) {
+		Sound.playMusic(item.music)
+	}
+
+	if (item.ambient !== null) {
+		Sound.playAmbient(item.ambient)
+	}
+
+	await Display.img(name)
+}
+
+async function music(name) { await Sound.playMusic(name) }
+function sound(name) { Sound.playSound(name) }
+async function say(name, text) { await Dialog.say(name, text) }
+
+
+
+function click() {
+	Sound.playSound('click.mp3');
 }
 
 function flick() {
-	Audio.playSound('flick.wav');
+	Sound.playSound('flick.wav');
 }
 
 
+$(function() {
 
-$(document).ready(function () {
-	
-	Audio 	 = new AudioApi();
-	Preload  = new PreloadApi();
-	Menu	 = new MenuApi();
-	Display  = new DisplayApi();
-	Dialog	 = new DialogApi();
-	iconMain = new IconApi();
-	iconMap  = new IconApi();
-
-	/* SHORT API SET */
-	img 	  = async function (name) { await Display.img(name) }
-	music	  = function (name) { Audio.playMusic(name) }
-	sound	  = function (name) { Audio.playSound(name) }
-	say		  = async function (name, text) { await Dialog.say(name, text) }
-	getTexture= async function (name) { return await PIXI.Texture.fromURL(Preload.get(name)) }
-	getSprite = async function (name) { return new PIXI.Sprite(await getTexture(name))}
 
 	Display.load();
 	Dialog.load();
 	Menu.loadOptions();
+	iconMain.load();
+	iconMap.load();
+
 
 	// HOTKEYS
 	document.onkeydown = function(e) {
 
-
 		console.log('KEY EVENT: ' + event.key + '/' + event.code);
-
 
 		// Escape
 		if(e.keyCode === 27){Menu.Esc();}

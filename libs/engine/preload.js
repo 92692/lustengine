@@ -1,6 +1,45 @@
 
 var preloadFiles = [];
 
+class PreloadFile {
+
+	constructor(url, blob, options = {}) {
+
+		this.url 		= url;
+		this.blob 		= blob;
+		this.options 	= options;
+		this.name 		= url.split('/').pop().split('.')[0];
+		this.unicalName = url;
+		this.rule 		= null;
+		this.music 		= options.hasOwnProperty('music') ? options.music : null;
+		this.ambient 	= options.hasOwnProperty('ambient') ? options.ambient : null;
+
+		if (options.hasOwnProperty('rule')) {
+			this.rule = new Function(options.rule);
+		}
+	}
+
+	match(name) {
+
+		if (this.name !== name) {
+			return false;
+		}
+
+		if (this.rule === null) {
+			return true;
+		}
+
+		let result = this.rule();
+
+		if (typeof result !== "boolean") {
+			throw new Error('Fail test rule in preloaded file');
+		}
+
+		return result;
+	}
+}
+
+
 /*
     Предзагрузка файлов: 
      
@@ -45,17 +84,31 @@ class PreloadApi
 		document.querySelector('#loading-text span').innerText = str;
 	}
 
-    get(name) {
 
-		for(let i=0; i<preloadFiles.length; i++) {
-			if(preloadFiles[i].name === name || preloadFiles[i].short === name) {
-				return preloadFiles[i].blob;
+	getRaw(name) {
+
+		for (let i=0; i<preloadFiles.length; i++) {
+			if (preloadFiles[i].unicalName === name) {
+				return preloadFiles[i];
 			}
 		}
 
-		console.log('Preload.get('+name+') = return null');
-		return null;
+		for (let i=0; i<preloadFiles.length; i++) {
+			if (preloadFiles[i].match(name)) {
+				return preloadFiles[i];
+			}
+		}
+
+		throw new Error('Preload.get : file not found!');
+	}
+
+    get(name) {
+		return this.getRaw(name).blob;
     }
+
+	getUnicalName(name) {
+		return this.getRaw(name).unicalName;
+	}
 
 	async loadFiles(array, cache = false)
     {
@@ -63,7 +116,10 @@ class PreloadApi
 
 		for (let i=0; i < array.length; i++) {
 
-			let result = await this.loadFile(array[i]);
+			let item 	= Array.isArray(array[i]) ? array[i] : [array[i]];
+			let url 	= item[0];
+			let options = item.length === 1 ? {} :  item[1];
+			let result	= await this.loadFile(url, options);
 
 			if (result === 'ok') {
 				this.setProgress(i, array.length);
@@ -75,7 +131,7 @@ class PreloadApi
 
 	}
 
-	async loadFile(url, cache=false) {
+	async loadFile(url, options, cache=false) {
 
 		console.log("load file: " + url);
 
@@ -103,25 +159,15 @@ class PreloadApi
 						// может потом поксорим
 					}
 
+					if (byteArray.length === 0) {
+						reject("File : " + url + " returned 0 bytes!")
+					}
+
 					let blob = new Blob([byteArray]);//, { type: "image/jpeg" } );
 					let urlCreator = window.URL || window.webkitURL;
 					let urlBlob = urlCreator.createObjectURL(blob);
-					let name = url.split('\\').pop().split('/').pop();
-					let short = Preload.getShortName(name);
 
-					// check unical
-					for (let i=0; i < preloadFiles.length; i++ ) {
-						if(preloadFiles[i].name === name || preloadFiles[i].short === short) {
-							throw new Error('file name ' + (name + '/' + short) + ' is not unical');
-						}
-					}
-
-					preloadFiles.push({
-						'uri': url,
-						'name': name,
-						'short': short,
-						'blob': urlBlob,
-					});
+					preloadFiles.push(new PreloadFile(url, urlBlob, options));
 
 					resolve('ok')
 

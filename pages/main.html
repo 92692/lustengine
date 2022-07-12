@@ -15,7 +15,7 @@
 </section>
 
 
-<section class='screen nodisplay choices ' id='skill-check'>
+<section class='screen nodisplay choices' id='skill-check'>
 
 	<div class="minigame" style="
 	display: flex;
@@ -24,7 +24,7 @@
     justify-content: center;
     align-items: center;">
 
-		<div id="skillcheck">
+		<div id="skillcheck" style='pointer-events: none; user-select: none;'>
 			<div id="zone"></div>
 			<div id="tick">
 				<div id="redtick"></div>
@@ -33,7 +33,7 @@
 
 		</div>
 
-		<div class="skill-stats">
+		<div class="skill-stats" style='pointer-events: none; user-select: none;'>
 
 			<div class="stat">
 				<input type="checkbox" id="btn-1">
@@ -267,13 +267,10 @@
 	<style>
 		div#skillcheck {
 			margin: auto;
-			/*margin-top: 40vh;*/
 			width: 180px;
 			height: 180px;
-			transition-duration: 100ms;
+			transition-duration: 200ms;
 			transition-timing-function: ease-in-out;
-			opacity: 0;
-			/*background-image: url("circle.png");*/
 		}
 
 		div#zone {

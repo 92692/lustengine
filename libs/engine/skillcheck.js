@@ -1,86 +1,74 @@
-
-
 class SkillCheckApi
 {
     constructor() {
+        this.enabled = false;
+        this.pressed = false;
+        this.success = 0;
+        this.fails   = 0;
+        this.checks = [];
+    }
 
+    load() {
         this.screen = id('skill-check');
-        this.skill = id('skillcheck');
         this.zone = id('zone');
         this.tick = id('tick');
         this.overlay = id('customkeyoverlay');
-        this.checks = [];
-        this.count = 3;
     }
 
-    async start(count = 1, speed = 10) {
+    show(count) {
 
-        SkillCheck.enabled = true;
+        this.load();
+        this.enabled = true;
 
         /* SHOW CHECKBOX LIST */
-
         $('.stat input').prop('checked', false)
         $('.stat').addClass('nodisplay');
         $('.stat:lt('+count+')').removeClass('nodisplay');
 
-/*
-        let stats = document.querySelectorAll('.stat');
-        let index = 0;
-
-        for (let i=0; i < stats.length; i++) {
-            if (i+1 > count) {
-                stats[i].classList.add('nodisplay');
-            } else {
-                stats[i].classList.remove('nodisplay');
-                document.querySelectorAll('.stat input')[i].checked=true;
-            }
-        }
-*/
-
-        /* SHOW SKILLCHECK ELEMENT */
         this.screen.classList.remove('nodisplay');
-        this.zone.style.opacity = "0";
-        this.tick.style.opacity = "0";
-        this.overlay.style.opacity = "0";
+        this.zone.style.opacity =  "0.7";
+        this.tick.style.opacity = '1';
+        this.overlay.style.opacity = '1';
+    }
 
-        /* STYLE SKILLCHECK */
-        this.skill.style.opacity = "1";
-        this.zone.style.opacity = "0.7";
-        this.tick.style.opacity = "1";
-        this.overlay.style.opacity = "1";
+    hide() {
 
+        this.enabled = false;
 
+        this.screen.classList.add("nodisplay");
+        this.zone.style.opacity = '0';
+        this.tick.style.opacity = '0';
+        this.overlay.style.opacity = '0';
+    }
+
+    async start(count = 1, speed = 10) {
+
+        this.show(count);
 
         for (let i=0; i<count; i++) {
 
             let result = await this.startCircle(speed);
 
             if (!result) {
-                Audio.playSound('skillcheck_fail_00');
-                SkillCheck.enabled = false;
+                Sound.playSound('skillcheck_fail_00');
+                this.hide();
                 return false;
             }
 
             document.querySelectorAll('.stat input')[i].checked = true;
-            Audio.playSound('skillcheck_success_00');
+            Sound.playSound('skillcheck_success_00');
 
             await sleep(1000);
         }
 
-
-        SkillCheck.enabled = false;
-
-        this.screen.classList.add('nodisplay');
-        this.zone.style.opacity = "0";
-        this.tick.style.opacity = "0";
-        this.overlay.style.opacity = "0";
+        this.hide();
         return true;
     }
 
 
     async startCircle(speed) {
 
-        SkillCheck.pressed = false;
+        this.pressed = false;
 
         /* RUN */
         let randZone = random(0, 360);
@@ -88,7 +76,7 @@ class SkillCheckApi
         this.zone.style.transform = "rotate(" + randZone + "deg)";
 
         // waiting press
-        while(!SkillCheck.pressed)
+        while(!this.pressed)
         {
             // check key is pressed;
             tickZone+=4;
@@ -125,46 +113,24 @@ class SkillCheckApi
     }
 
 
-}
+    async test() {
 
+        this.show(3);
+        let randZone = random(0, 360);
 
+        while (!this.pressed) {
 
-async function skillTest(){
+            this.zone.style.transform = "rotate(" + randZone + "deg)";
+            this.tick.style.transform = "translate(50%, 0) rotate(" + randZone + "deg)";
+            await sleep(2);
 
-    SkillCheck.enabled = true;
-    SkillCheck.pressed = false;
-
-    let screen = id('skill-check');
-    let skill = id('skillcheck');
-    let zone = id('zone');
-    let tick = id('tick');
-    let overlay = id('customkeyoverlay');
-    let randZone = random(0, 360);
-
-    screen.classList.remove('nodisplay');
-    zone.style.opacity = "0";
-    tick.style.opacity = "0";
-    overlay.style.opacity = "0";
-
-    skill.style.opacity = "1";
-    zone.style.opacity = "0.7";
-    tick.style.opacity = "1";
-    overlay.style.opacity = "1";
-
-
-
-    while (!SkillCheck.pressed) {
-
-        zone.style.transform = "rotate(" + randZone + "deg)";
-        tick.style.transform = "translate(50%, 0) rotate(" + randZone + "deg)";
-        await sleep(2);
-
-        randZone++
-        if (randZone++ > 360) {
-            randZone-=360;
+            randZone++
+            if (randZone++ > 360) {
+                randZone-=360;
+            }
         }
-    }
 
-    SkillCheck.enabled = false;
+        this.hide();
+    }
 }
 

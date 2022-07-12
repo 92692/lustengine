@@ -176,9 +176,9 @@ class MenuApi
 	 */
 	loadOptions() {
 		
-		let options = { 
-			musicVolume : 0.5, 
-			soundVolume : 0.5, 
+		let options = {
+			volumeMusic : 0.5,
+			volumeSound : 0.5,
 			textTime	: 50,
 		};
 			
@@ -186,17 +186,15 @@ class MenuApi
 			options = JSON.parse(localStorage.getItem("options"));
 		}
 
-		Audio.music.volume	= options.musicVolume;
-		Audio.sound.volume	= options.soundVolume;
+		Sound.volumeMusic	= options.volumeMusic;
+		Sound.volumeSound	= options.volumeSound;
 		Dialog.textTime 	= options.textTime;
 
-		console.log(Audio.music.volume)
-
-		let p1 =  options.musicVolume * 100;
+		let p1 =  options.volumeMusic * 100;
 		id('music-volume').value = p1;
 		id('music-volume').style.background = 'linear-gradient(90deg, #d3c4ff '+p1+'%, #646360 '+p1+'%)';
 		
-		let p2 =  options.soundVolume * 100;
+		let p2 =  options.volumeSound * 100;
 		id('sound-volume').value = p2;
 		id('sound-volume').style.background = 'linear-gradient(90deg, #d3c4ff '+p2+'%, #646360 '+p2+'%)';
 		
@@ -208,9 +206,10 @@ class MenuApi
 		$('#music-volume').on('change input', function(){
 
 			let p = this.value;
-			this.style.background = 'linear-gradient(90deg, #d3c4ff '+p+'%, #646360 '+p+'%)';
 			let volume = p / 100;
-			Audio.music.volume = volume;
+
+			this.style.background = 'linear-gradient(90deg, #d3c4ff '+p+'%, #646360 '+p+'%)';
+			Sound.volumeMusic = volume;
 			Menu.Save();
 		});
 		
@@ -218,9 +217,10 @@ class MenuApi
 		$('#sound-volume').on('change input', function(){
 
 			let p = this.value;
-			this.style.background = 'linear-gradient(90deg, #d3c4ff '+p+'%, #646360 '+p+'%)';
 			let volume = p / 100;
-			Audio.sound.volume = volume;
+
+			this.style.background = 'linear-gradient(90deg, #d3c4ff '+p+'%, #646360 '+p+'%)';
+			Sound.volumeSound = volume;
 			sound('flick');
 			Menu.Save();
 		});
@@ -249,8 +249,8 @@ class MenuApi
 		setTimeout(function(){
 
 			let options = JSON.stringify({
-				'musicVolume'	: Audio.music.volume,
-				'soundVolume'	: Audio.sound.volume,
+				'volumeMusic'	: Sound.volumeMusic,
+				'volumeSound'	: Sound.volumeSound,
 				'textTime'		: Dialog.textTime,
 			})
 

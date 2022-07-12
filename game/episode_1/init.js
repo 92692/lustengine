@@ -1,18 +1,10 @@
 var fixAutoplay = true;
 var GAME_FILES = [
 
-    /*
-            '/bar/intro_1.jpg',
-            '/bar/intro_2.jpg',
-            '/bar/intro_3.jpg',
-            ['/bar/scene_1_simple.jpg',    'scene_1', 'Stats.tattoo==false'],
-            ['/bar/scene_1_tattoo.jpg',    'scene_1', 'Stats.tattoo==false'],
-            '/bar/scene_2.jpg',
-            '/bar/scene_3.jpg',
-    */
 
     /* audio */
-    'sound/bg_theme.mp3',
+    ['sound/bg_theme.01.mp3',  { rule: 'return !Stats.night' }],
+    ['sound/bg_theme.02.mp3',  { rule: 'return Stats.night' }],
     'sound/click.mp3',
     'sound/flick.wav',
     'sound/click-map-close.ogg',
@@ -20,7 +12,6 @@ var GAME_FILES = [
 
     'sound/skillcheck_success_00.wav',
     'sound/skillcheck_fail_00.wav',
-
 
     /* effects */
     'effects/love.png',
@@ -49,12 +40,22 @@ var GAME_FILES = [
     /*
     *       GAME SLIDES
     * */
-    'img/intro_1.jpg',
-    'img/intro_2.jpg',
-    'img/intro_3.jpg',
+    ['img/intro_1.jpg',  { music: 'bg_theme' } ],
+    ['img/intro_2.jpg',  { music: 'bg_theme' } ],
+    ['img/intro_3.jpg',  { music: 'bg_theme' }],
 
 
 ];
+
+
+
+
+
+
+
+
+
+
 
 async function initGame() {
 
@@ -102,7 +103,7 @@ async function initScene() {
     Dialog.setCharacter('Angel');
     Dialog.setCharacter('Michael');
 
-    await img('intro_1.jpg');
+    await img('intro_1');
 
 
     // init player icon
@@ -111,18 +112,32 @@ async function initScene() {
     // init map icon
     iconMap.texture = await getTexture('map');
 
-    // init map
-    map = new MapApi(await getTexture('map-back'));
-    map.addPoint('map-door-1',  await getTexture('map-point-1'), 553, 409, async ()=> await callPoint1());
-    map.addPoint('map-door-2',  await getTexture('map-point-2'), 986, 810, async ()=> await callPoint2());
-    map.addPoint('map-close', await getTexture('map-close'), 1820, 75, async ()=> {
-        Audio.playSound('map-close.ogg');
-        await map.fadeOut();
-    });
+    var mappe
+
+    if(true) { // new map
+
+        map = new MapperApi('click-map-open', 'click-map-close');
+        map.addMap('town', await getSprite('map-back'), await getSprite('map-close'), 1820, 75);
+        map.addPoint('town', null, await getSprite('map-point-1'), 553, 409, jumpToTavern);
+        map.addPoint('town', null, await getSprite('map-point-2'), 986, 810, jumpToCamp);
+
+    } else {
+
+        // init map
+        map = new MapApi(await getTexture('map-back'));
+        map.addPoint('map-door-1',  await getTexture('map-point-1'), 553, 409, async ()=> await callPoint1());
+        map.addPoint('map-door-2',  await getTexture('map-point-2'), 986, 810, async ()=> await callPoint2());
+        map.addPoint('map-close', await getTexture('map-close'), 1820, 75, async ()=> {
+            Sound.playSound('click-map-close');
+            await map.fadeOut();
+        });
+
+    }
+
 
     // map click
     iconMap.onClick = async function () {
-        Audio.playSound('click-map-open');
+        Sound.playSound('click-map-open');
         await map.fadeIn();
     };
 

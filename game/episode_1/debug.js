@@ -6,14 +6,13 @@
 
 function scriptDebug() {
 
-
     Dialog.choise({
         'Dialog': async ()=> { await say('THis is simple text') },
         'Effects': async ()=> {
 
-            Dialog.choise({
+            await Dialog.choise({
                 'Shake': async ()=>{
-                    Display.effectShake();
+                    await Display.effectShake();
                 },
                 'Lusted': async ()=>{
                     Display.effectLust();
@@ -21,20 +20,14 @@ function scriptDebug() {
             })
         },
         'SkillCheck': async ()=>{
-
-            //let variant = choise([1,2,3,4,5,6,7,8,9]);
-            let checker = new SkillCheckApi();
-            checker.start(3);
-
+            await SkillCheck.start(3)
         },
         'SlowCheck': async ()=>{
-
-            //let variant = choise([1,2,3,4,5,6,7,8,9]);
-            let checker = new SkillCheckApi();
-            checker.start(3, 300);
-
+            await SkillCheck.start(3, 300)
         },
-        'SkillTest': skillTest,
+        'SkillTest':  async ()=> {
+            await SkillCheck.test()
+        },
 
     })
 

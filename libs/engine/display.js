@@ -9,17 +9,20 @@ class DisplayApi
         this.changeSpeed = 16;
         this.backSprite = new PIXI.Sprite();
 
-
         // картинки фона
         this.backContainer = new PIXI.Container();
         this.backContainer.addChild(this.backSprite);
 
+    }
+
+    load() {
+
         app.destroy();
         app = new PIXI.Application({
-            width: 0, 
-            height: 0, 
-            backgroundColor: 0x333333, 
-           // resolution: 1,
+            width: 0,
+            height: 0,
+            backgroundColor: 0x333333,
+            // resolution: 1,
             resolution: window.devicePixelRatio || 1,
         });
 
@@ -28,9 +31,7 @@ class DisplayApi
         app.renderer.autoDensity = true;
         app.resizeTo = window;
         app.stage.addChild(this.backContainer);
-    }
 
-    load() {
         id('background').appendChild(app.view);
         window.addEventListener("resize", this.onResize.bind(this), false);
     }

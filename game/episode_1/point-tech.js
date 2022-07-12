@@ -38,6 +38,10 @@ async function callPoint1() {
                 Stats.lust_cur = Stats.lust_max;
             }
         },
+        'test' : async () => {
+
+
+        }
 
     })
 

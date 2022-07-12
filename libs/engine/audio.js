@@ -1,76 +1,202 @@
 
-/**
- * Класс для управления звуками в игре
- */
-class AudioApi
+
+class SoundApi
 {
 
-	constructor(musicVolume = 0.5, soundVolume = 0.5) {  
+	constructor() {
 
-		this.music = document.createElement('audio');
-		this.music.setAttribute('allow', 'autoplay')
-		this.music.volume = musicVolume;
-		this.music.loop = true;
-
-		this.music.onloadstart = function() {
-			console.log("this.music.onloadstart");
-			//Audio.music.volume = 0;
-		};
-
-
-		this.music.onplaying = function() {
-			console.log("onplaying");
-			//Audio.music.volume = 0;
-
-		};
-
-
-		this.sound  = document.createElement('audio');
-		this.sound.setAttribute('allow', 'autoplay')
-		this.sound.volume = soundVolume;
-
+		this.music 			= new Audio();
+		this.ambient		= new Audio();
+		this.music.loop		= true;
+		this.ambient.loop	= true;
+		this.volumeSound	= 1;
+		this.volumeFadeSec	= 1;
+		this.audioCache		= [];
+		this.blockMusic		= false;
+		this.blockAmbient	= false;
 	}
 
-	/**
-	 *
-	 * @param {string} name 
-	 */
-	playMusic(name) {
-		
-		let blob = Preload.get(name);
+	set volumeMusic(value) {
+		this.music.volume = value;
+		this.ambient.volume = value;
+	}
 
-		if (blob !== null) {
-			this.music.setAttribute('src', blob);
-			this.music.play();
+	get volumeMusic() {
+		return this.music.volume;
+	}
+
+	getAudio(unicalName, volume, loop) {
+
+		for (let i=0; i<this.audioCache.length; i++) {
+			if (this.audioCache[i].unicalName === unicalName) {
+				this.audioCache[i].volume = volume;
+				return this.audioCache[i];
+			}
 		}
+
+		let audio = new Audio(Preload.get(unicalName))
+		audio.unicalName = unicalName;
+		audio.volume = volume;
+		audio.loop = loop;
+		this.audioCache.push(audio);
+
+		return audio;
 	}
 
-	pauseMusic() {
+	fadeIn(audio) {
 
-		if (this.music.paused) {
-			this.music.play()
-		} else {
+		let parts = 30;
+		let ms = Math.ceil((this.volumeFadeSec * 1000) / parts);
+		let volume = audio.volume;
+		let vol = volume / 30;
 
-			// дописать плавное звтухание и стоп музыки
-			this.music.pause()
+		return new Promise(async (resolve, reject) => {
+
+			audio.volume = 0;
+			audio.play();
+
+			for (let i=0; i<parts; i++) {
+				audio.volume = (vol * i);
+				await sleep(ms);
+			}
+
+			audio.volume = volume;
+			resolve(1);
+		});
+	}
+
+	fadeOut(audio) {
+
+		let parts = 30;
+		let ms = Math.ceil((this.volumeFadeSec * 1000) / parts);
+		let volume = audio.volume;
+		let vol = volume / 30;
+
+		return new Promise(async (resolve, reject) => {
+
+			for(let i=parts; i>0; i--) {
+				audio.volume = (vol * i);
+				await sleep(ms);
+			}
+
+			audio.pause();
+			audio.currentTime=0;
+			audio.volume = volume;
+			resolve(1);
+		});
+	}
+
+	async playMusic(name) {
+
+		let unicalName = Preload.getUnicalName(name);
+
+		while (this.blockMusic) {
+			await sleep(50)
 		}
-	}
 
+		this.blockMusic = true;
 
-	playSound(name) {
+		if (this.music.unicalName === unicalName) {
 
-		if (name === false || name === null) {
+			if (this.music.paused) {
+				await this.fadeIn(this.music);
+			}
+
+			this.blockMusic = false;
 			return;
 		}
 
-		let blob = Preload.get(name);
-
-		if (blob !== null) {
-			this.sound.setAttribute('src', blob);
-			this.sound.play();
+		if (!this.music.paused) {
+			await this.fadeOut(this.music);
 		}
+
+		this.music = this.getAudio(unicalName, this.volumeMusic, true)
+		this.music.currentTime = 0;
+		await this.fadeIn(this.music);
+		this.blockMusic = false;
+		console.debug('[done] playMusic')
 	}
 
+	async playAmbient(name) {
+
+		let unicalName = Preload.getUnicalName(name);
+
+		while (this.blockAmbient) {
+			await sleep(50)
+		}
+
+		this.blockAmbient = true;
+
+		if (this.ambient.unicalName === unicalName) {
+
+			if (this.ambient.paused) {
+				await this.fadeIn(this.ambient);
+			}
+
+			this.blockAmbient = false;
+			return;
+		}
+
+		if(!this.ambient.paused) {
+			await this.fadeOut(this.ambient);
+		}
+
+		this.ambient = this.getAudio(unicalName, this.volumeMusic, true)
+		this.ambient.currentTime = 0;
+		await this.fadeIn(this.ambient);
+		this.blockAmbient = false;
+		console.debug('[done] playAmbient')
+	}
+
+	playSound(name) {
+
+		if (name === null || name === false) {
+			return;
+		}
+
+		let unicalName = Preload.getUnicalName(name);
+		let audio = this.getAudio(unicalName, this.volumeSound, false);
+
+		audio.pause();
+		audio.currentTime = 0;
+		audio.play();
+	}
+
+	async stopMusic() {
+
+		while (this.blockMusic) {
+			await sleep(50)
+		}
+
+		this.blockMusic = true;
+		await this.fadeOut(this.music);
+		this.blockMusic = false;
+
+		console.debug('[done] stopMusic')
+	}
+
+	async stopAmbient() {
+
+		while (this.blockAmbient) {
+			await sleep(50)
+		}
+
+		this.blockAmbient = true;
+		await this.fadeOut(this.ambient);
+		this.blockAmbient = false;
+
+		console.debug('[done] stopAmbient')
+	}
+
+
+
+
+
 }
+
+
+
+
+
 
 

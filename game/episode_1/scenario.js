@@ -3,27 +3,9 @@
 
 
 
-async function watcher(){
-
-    let last = 0;
-
-    while(true) {
-
-        let x = Dialog.dialogClicked;
-        if(last !== x) {
-            console.log('CLICK=' + x);
-            last = x;
-        }
-        await sleep(1);
-    }
-}
-
 
 
 async function scenario() {
-
-
-    watcher();
 
 
     await img('intro_1');
@@ -35,17 +17,17 @@ async function scenario() {
 
     await Dialog.choise({
 
-        'Миниигра' : async ()=> {
+        'Mini game' : async ()=> {
 
-            while (!await new SkillCheckApi().start(3)) {
-                sleep(1000);
+            while (!await SkillCheck.start(3)) {
+                await sleep(1000);
                 await say('Вы проиграли, попробуйте еще раз');
                 Dialog.hide();
             }
 
             await say('Вы подебили, еееее!');
         },
-        'Здравствуйте' : async ()=> {
+        'Hello' : async ()=> {
             await say('И вам не хворать')
         }
     });

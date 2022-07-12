@@ -15,8 +15,11 @@ class IconApi
         this.xOffset = 20;
         this.yOffset = 20;
         this.spriteIcon = new PIXI.Sprite();
-
         this.container = new PIXI.Container();
+    }
+
+    load(){
+
         this.container.interactive = true;
         this.container.buttonMode = true;
         this.container.visible = false;
@@ -28,7 +31,6 @@ class IconApi
             .on('pointerout', function () { this.onButtonOut() }.bind(this))
 
         app.stage.addChild(this.container);
-
 
         window.addEventListener("resize", this.onResize.bind(this), false);
         this.onResize();
