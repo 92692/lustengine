@@ -344,6 +344,8 @@ class MapperApi {
         sprite
             .on('pointerdown', async e =>  {
                 console.log('MAP POINT CLICKED!');
+                console.log(this);
+                this.fadeOut()
                 func()
             })
             .on('pointerover', this.onPointOver)

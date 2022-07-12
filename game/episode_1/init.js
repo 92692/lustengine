@@ -136,10 +136,12 @@ async function initScene() {
 
 
     // map click
-    iconMap.onClick = async function () {
-        Sound.playSound('click-map-open');
-        await map.fadeIn();
-    };
+    iconMap.onClick = async ()=> { await map.fadeIn(); };
+
+    iconMain.fadeIn();
+    iconMap.fadeIn()
+
+    await sleep(66666);
 
     runIconMainUpdater();
     scenario();

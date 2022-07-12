@@ -170,7 +170,6 @@ class DialogApi
 			character = '';
 		}
 
-		iconMap.visible = false;
 		this.dialogClicked = false;
 		this.elName.style.color = this.cache[character].color;
 		this.elName.innerHTML = this.cache[character].name;
