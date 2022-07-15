@@ -15,3 +15,9 @@ function jumpToCamp(){
 
     say('Мы в лагере!');    Dialog.hide()
 }
+
+
+function jumpToTown(){
+
+    say('Мы в городе!');    Dialog.hide()
+}

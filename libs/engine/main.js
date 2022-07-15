@@ -10,7 +10,7 @@ const Dialog	 = new DialogApi();
 const Display	 = new DisplayApi();
 const iconMain	 = new IconApi();
 const iconMap	 = new IconApi();
-var map			 = null;
+const map 		 = new MapApi('click-map-open', 'click-map-close');
 
 var Stats = {
 	'sex': 'female',

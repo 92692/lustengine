@@ -99,7 +99,7 @@ class PreloadApi
 			}
 		}
 
-		throw new Error('Preload.get : file not found!');
+		throw new Error('Preload.get : file '+name+' not found!');
 	}
 
     get(name) {

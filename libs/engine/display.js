@@ -180,7 +180,7 @@ class DisplayApi
 
     async effectLust() {
 
-        let sprite = await getSprite('love.png');
+        let sprite = await getSprite('love');
 
         console.log(sprite);
 
